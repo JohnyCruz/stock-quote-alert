@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace stock_quote_alert
+namespace ClassLibrary_stock_quote_alert
 {
-    class Program
+    public class Class1
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }
