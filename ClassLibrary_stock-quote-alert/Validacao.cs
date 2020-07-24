@@ -17,5 +17,28 @@ namespace ClassLibrary_stock_quote_alert
             bool vendaMaiorQueCompra = valorVenda > valorCompra;
             return ativoValido && referenciaVendaValido && referenciaCompraValido && vendaMaiorQueCompra;
         }
+
+        public static bool ValidaAtivoEstaDisponivelAPI(string ativo)
+        {
+            try
+            {
+                bool ativoValido = false;
+                if (string.IsNullOrEmpty(ativo)) return ativoValido;
+                foreach (string ativoDisponivel in LeitorDeArquivos.ativosDisponveis())
+                {
+                    if (ativoDisponivel.Split(';')[0].Contains(ativo))
+                    {
+                        ativoValido = true;
+                        break;
+                    }
+                }
+                return ativoValido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

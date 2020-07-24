@@ -29,5 +29,19 @@ namespace UnitTestProject_stock_quote_alert
                            "Usuário passou 3 parâmetros de entrada e todos os valores estão como esperado");
 
         }
+        [TestMethod]
+        public void TestaSeAtivoEFornecidoPelaAPI()
+        {
+            string[] args = new string[3] { "PETR4", "22.67", "22.59" };
+            Assert.IsFalse(Validacao.ValidaAtivoEstaDisponivelAPI(null),
+                           "Usuário forneceu um ativo nulo");
+            Assert.IsFalse(Validacao.ValidaAtivoEstaDisponivelAPI(string.Empty),
+               "Usuário forneceu um ativo em branco");
+            Assert.IsFalse(Validacao.ValidaAtivoEstaDisponivelAPI("PETR5"),
+               "Usuário forneceu um ativo inválido");
+            Assert.IsTrue(Validacao.ValidaAtivoEstaDisponivelAPI("PETR4"),
+                           "Usuário fonrceu um ativo válido");
+            
+        }
     }
 }
