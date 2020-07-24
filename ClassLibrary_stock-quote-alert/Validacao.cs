@@ -11,7 +11,11 @@ namespace ClassLibrary_stock_quote_alert
         public static bool ValidaParametrosEntrada(string[] args)
         {
             if (args.Length != 3) return false;
-            else return true;
+            bool ativoValido = !string.IsNullOrWhiteSpace(args[0]);
+            bool referenciaVendaValido = Decimal.TryParse(args[1], out decimal valorVenda);
+            bool referenciaCompraValido = Decimal.TryParse(args[2], out decimal valorCompra);
+            bool vendaMaiorQueCompra = valorVenda > valorCompra;
+            return ativoValido && referenciaVendaValido && referenciaCompraValido && vendaMaiorQueCompra;
         }
     }
 }
