@@ -69,6 +69,13 @@ namespace UnitTestProject_stock_quote_alert
             Assert.IsTrue(Decimal.TryParse(result["results"]["PETR4"]["price"].ToString(), out decimal price));
 
         }
+        
+        [TestMethod]
+        public void TestaEnvioDeEmail()
+        {
+            Assert.IsTrue(Email.Enviar("SUBJECT", "BODY"), "Testa envio de email");
+            
+        }
 
 
     }

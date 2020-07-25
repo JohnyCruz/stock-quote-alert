@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIAtivos.cs" />
+    <Compile Include="Email.cs" />
     <Compile Include="LeitorDeArquivos.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
