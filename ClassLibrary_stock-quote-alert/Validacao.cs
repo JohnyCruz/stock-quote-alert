@@ -82,5 +82,10 @@ namespace ClassLibrary_stock_quote_alert
                 && keyAPIKeyIsValid;
 
         }
+
+        public static bool ValidaBuscaDeAtivos()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassLibrary_stock_quote_alert;
+using Newtonsoft.Json.Linq;
 
 namespace UnitTestProject_stock_quote_alert
 {
@@ -47,6 +48,25 @@ namespace UnitTestProject_stock_quote_alert
         public void TestaArquivoDeConfiguracoesEstaCorreto()
         {
             Assert.IsTrue(Validacao.ValidaArquivoDeConfiguracao(),"O Arquivo de validação está configurado corretamente");
+
+        }
+
+        [TestMethod]
+        public void TestaBuscaDeAtivos()
+        {
+            JObject result = APIAtivos.BuscarAtivo("");
+            Assert.IsTrue((Boolean)result["results"]["error"]);
+            result = APIAtivos.BuscarAtivo("XOUD");
+            Assert.IsTrue((Boolean)result["results"]["XOUD"]["error"]);
+            result = APIAtivos.BuscarAtivo(null);
+            Assert.IsTrue((Boolean)result["results"]["error"]);
+
+            result = APIAtivos.BuscarAtivo("PETR4");
+            Assert.IsNull(result["results"]["error"]);
+            result = APIAtivos.BuscarAtivo("PETR4");
+            Assert.IsNotNull(result["results"]["PETR4"]);
+            Assert.IsNotNull(result["results"]["PETR4"]["price"]);
+            Assert.IsTrue(Decimal.TryParse(result["results"]["PETR4"]["price"].ToString(), out decimal price));
 
         }
 
