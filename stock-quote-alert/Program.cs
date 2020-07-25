@@ -64,8 +64,6 @@ namespace stock_quote_alert
             timer = new System.Timers.Timer();
             timer.Interval = 1000 * 60 * 15;// A api é atualizada a cada 15 minutos, então a requisição será feita a cada 15 minutos
             timer.Elapsed += OnTimedEvent;
-            //timer.AutoReset = true;
-            // Start the timer
             timer.Enabled = true;
 
             Console.WriteLine("Para sair do programa pressione qualquer tecla... ");
@@ -151,7 +149,7 @@ namespace stock_quote_alert
             }
 
             
-            if(DateTime.Now.TimeOfDay < Convert.ToDateTime("10:00").TimeOfDay || DateTime.Now.TimeOfDay > Convert.ToDateTime("14:30").TimeOfDay)
+            if(DateTime.Now.TimeOfDay < Convert.ToDateTime("10:00").TimeOfDay || DateTime.Now.TimeOfDay > Convert.ToDateTime("17:30").TimeOfDay)
             {
                 //Os valores dos ativos não são atualizados antes das 10:00 e também não são atualizados depois das 17:30, então o app espera
                 DateTime startTime = DateTime.Now;
@@ -163,10 +161,11 @@ namespace stock_quote_alert
                     duration = Convert.ToDateTime("10:00").AddDays(2).Subtract(DateTime.Now);
                 }
 
-                if (((int)DateTime.Now.DayOfWeek) == 0)
+                if (((int)DateTime.Now.DayOfWeek) == 5)
                 {
-                    duration = Convert.ToDateTime("10:00").AddDays(1).Subtract(DateTime.Now);
+                    duration = Convert.ToDateTime("10:00").AddDays(3).Subtract(DateTime.Now);
                 }
+
                 timer.Stop();
                 Console.WriteLine($"Após essa consulta vou dormir por {duration.ToString("c")} horas, até segunda-feira as 10h");
                 Thread.Sleep(duration);
