@@ -40,5 +40,47 @@ namespace ClassLibrary_stock_quote_alert
                 throw ex;
             }
         }
+
+        public static bool ValidaArquivoDeConfiguracao()
+        {
+            List<string> AllKeys = System.Configuration.ConfigurationManager.AppSettings.AllKeys.ToList<string>();
+
+            bool keyEmailToIsValid = AllKeys.Contains("EmailTo")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["EmailTo"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["EmailTo"].ToString());
+
+            bool keyEmailFromIsValid = AllKeys.Contains("EmailFrom")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["EmailFrom"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["EmailFrom"].ToString());
+
+            bool keyCredentialEmailIsValid = AllKeys.Contains("CredentialEmail")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["CredentialEmail"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["CredentialEmail"].ToString());
+
+            bool keyCredentialPassowordIsValid = AllKeys.Contains("CredentialPassword")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["CredentialPassword"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["CredentialPassword"].ToString());
+
+            bool keySMTPHostIsValid = AllKeys.Contains("SMTPHost")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["SMTPHost"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["SMTPHost"].ToString());
+
+            bool keySMTPPortIsValid = AllKeys.Contains("SMTPPort")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["SMTPPort"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["SMTPPort"].ToString());
+            
+            bool keyAPIKeyIsValid = AllKeys.Contains("APIKey")
+                   && !string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["APIKey"].ToString())
+                   && !string.IsNullOrWhiteSpace(System.Configuration.ConfigurationManager.AppSettings["APIKey"].ToString());
+
+
+            return keyEmailToIsValid
+                && keyEmailFromIsValid
+                && keyCredentialEmailIsValid
+                && keyCredentialPassowordIsValid
+                && keySMTPHostIsValid
+                && keyAPIKeyIsValid;
+
+        }
     }
 }

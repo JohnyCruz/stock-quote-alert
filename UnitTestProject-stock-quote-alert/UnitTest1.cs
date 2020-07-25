@@ -43,5 +43,13 @@ namespace UnitTestProject_stock_quote_alert
                            "Usuário fonrceu um ativo válido");
             
         }
+        [TestMethod]
+        public void TestaArquivoDeConfiguracoesEstaCorreto()
+        {
+            Assert.IsTrue(Validacao.ValidaArquivoDeConfiguracao(),"O Arquivo de validação está configurado corretamente");
+
+        }
+
+
     }
 }
