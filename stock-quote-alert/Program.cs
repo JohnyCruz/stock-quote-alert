@@ -29,7 +29,7 @@ namespace stock_quote_alert
             entradaUsuario.ativo = args[0];
             entradaUsuario.referenciaVenda = Convert.ToDecimal(args[1], usCulture);
             entradaUsuario.referenciaCompra = Convert.ToDecimal(args[2], usCulture);
-            if (!ScrapyAtivosDisponiveis.Atualizar()) Console.WriteLine("Não foi possível consultar novos ativos, vamos utilizar os ativos disponíveis na ultima atualização.");
+            if (!ScraperAtivosDisponiveis.Atualizar()) Console.WriteLine("Não foi possível consultar novos ativos, vamos utilizar os ativos disponíveis na ultima atualização.");
 
             if (!Validacao.ValidaAtivoEstaDisponivelAPI(entradaUsuario.ativo))
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary_stock_quote_alert
 {
-    public class ScrapyAtivosDisponiveis
+    public class ScraperAtivosDisponiveis
     {
         public static bool Atualizar()
         {

@@ -65,7 +65,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ScrapyAtivosDisponiveis.cs" />
+    <Compile Include="ScraperAtivosDisponiveis.cs" />
     <Compile Include="Validacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
