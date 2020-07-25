@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -12,7 +13,7 @@ namespace stock_quote_alert
 {
     class Program
     {
-        private static Timer timer;
+        private static System.Timers.Timer timer;
         private static EntradaUsuario entradaUsuario;
         private static CultureInfo usCulture;
         static void Main(string[] args)
@@ -28,7 +29,8 @@ namespace stock_quote_alert
             entradaUsuario.ativo = args[0];
             entradaUsuario.referenciaVenda = Convert.ToDecimal(args[1], usCulture);
             entradaUsuario.referenciaCompra = Convert.ToDecimal(args[2], usCulture);
-            
+            if (!ScrapyAtivosDisponiveis.Atualizar()) Console.WriteLine("Não foi possível consultar novos ativos, vamos utilizar os ativos disponíveis na ultima atualização.");
+
             if (!Validacao.ValidaAtivoEstaDisponivelAPI(entradaUsuario.ativo))
             {
                 Console.WriteLine("Nós não fornecemos suporte para este ativo. Gostaria de saber para quais ativos temos suporte?(S\\N)");
@@ -40,6 +42,8 @@ namespace stock_quote_alert
                         Console.WriteLine(ativo);
                     }
                     Console.WriteLine("Tente novamente com um dos ativos suportados.");
+                    Console.WriteLine("Pressione qualquer tecla para tentar novamente...");
+                    //Console.ReadKey();
                     Environment.Exit(0);
                 }
                 else if (answer.Equals("N"))
@@ -55,10 +59,9 @@ namespace stock_quote_alert
             }
 
             timer = new System.Timers.Timer();
-            timer.Interval = 1000 * 60;
+            timer.Interval = 1000 * 60 * 15;// A api é atualizada a cada 15 minutos, então a requisição será feita a cada 15 minutos
             timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-
+            //timer.AutoReset = true;
             // Start the timer
             timer.Enabled = true;
 
@@ -143,7 +146,18 @@ namespace stock_quote_alert
             }
 
             
-
+            if(DateTime.Now.TimeOfDay < Convert.ToDateTime("10:00").TimeOfDay || DateTime.Now.TimeOfDay > Convert.ToDateTime("14:30").TimeOfDay)
+            {
+                //Os valores dos ativos não são atualizados antes das 10:00 e também não são atualizados depois das 17:30, então o app espera
+                DateTime startTime = DateTime.Now;
+                DateTime endtime = Convert.ToDateTime("10:00");
+                DateTime endOftheDay = Convert.ToDateTime("23:59");
+                TimeSpan duration = Convert.ToDateTime("10:00").AddDays(1).Subtract(DateTime.Now);
+                timer.Stop();
+                Console.WriteLine($"Após essa consulta vou dormir por {duration} horas, até amanhã as 10h");
+                Thread.Sleep(duration);
+                timer.Start();
+            }
 
         }
 
