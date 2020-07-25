@@ -83,9 +83,5 @@ namespace ClassLibrary_stock_quote_alert
 
         }
 
-        public static bool ValidaBuscaDeAtivos()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

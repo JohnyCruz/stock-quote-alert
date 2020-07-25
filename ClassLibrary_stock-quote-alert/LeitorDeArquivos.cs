@@ -27,5 +27,48 @@ namespace ClassLibrary_stock_quote_alert
                 throw ex;
             }
         }
+
+        public static string LeArquivoHTML(string nomeArquivo)
+        {
+            try
+            {
+                var fileStocks = nomeArquivo;
+                string resourcePath = Path.Combine("Resources", fileStocks);
+
+                using (StreamReader reader = new StreamReader(resourcePath))
+                {
+
+                    return reader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public static string modeloEmailCompra()
+        {
+            try
+            {
+                return LeArquivoHTML("ModeloEmailCompra.html");
+            }
+            catch (Exception)
+            {
+                return "Está na hora de comprar o ativo #Ativo, pois está com o preco #precoAtivo e o preco de referencia é #referenciaDeCompra";
+            }
+        }
+
+        public static string modeloEmailVenda()
+        {
+            try
+            {
+                return LeArquivoHTML("ModeloEmailVenda.html");
+            }
+            catch (Exception)
+            {
+                return "Está na hora de vender o ativo #Ativo, pois está com o preco #precoAtivo e o preco de referencia é #referenciaDeVenda";
+            }
+        }
     }
 }
