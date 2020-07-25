@@ -21,7 +21,10 @@ namespace stock_quote_alert
             checarArquivoDeConfiguracao();
             if (!Validacao.ValidaParametrosEntrada(args))
             {
-                Console.WriteLine("Os parâmetros de entrada não estão no formato correto. Seguir o exemplo:\n'Ativo'  'Referência para venda' 'Referência para compra'\nPETR4 22.67 22.59");
+                Console.WriteLine("Os parâmetros de entrada não estão no formato correto. Seguir o exemplo:");
+                Console.WriteLine("'Ativo'  'Referência para venda' 'Referência para compra'");
+                Console.WriteLine("PETR4 22.67 22.59");
+                Console.WriteLine("Nota: o preço de referencia para venda deve ser maior do que o preço de referencia para compra.");
                 Environment.Exit(0);
             }
             entradaUsuario = new EntradaUsuario();
@@ -65,7 +68,7 @@ namespace stock_quote_alert
             // Start the timer
             timer.Enabled = true;
 
-            Console.WriteLine("Para sair do programa aperte qualquer tecla... ");
+            Console.WriteLine("Para sair do programa pressione qualquer tecla... ");
             Console.ReadLine();
         }
         private static void checarArquivoDeConfiguracao()
@@ -94,6 +97,8 @@ namespace stock_quote_alert
 
             Console.WriteLine($"O evento foi disparado às {e.SignalTime}");
             checarArquivoDeConfiguracao();
+            Console.WriteLine($"Estou monitorando o ativo:{entradaUsuario.ativo}");
+            Console.WriteLine($"Estou monitorando o ativo enviarei um email caso o preço esteja maior que {entradaUsuario.referenciaVenda} ou menor que {entradaUsuario.referenciaCompra}.");
 
             JObject respostaAPI = APIAtivos.BuscarAtivo(entradaUsuario.ativo);
             if (!(respostaAPI["results"]["error"] is null))
@@ -153,11 +158,22 @@ namespace stock_quote_alert
                 DateTime endtime = Convert.ToDateTime("10:00");
                 DateTime endOftheDay = Convert.ToDateTime("23:59");
                 TimeSpan duration = Convert.ToDateTime("10:00").AddDays(1).Subtract(DateTime.Now);
+                if (((int)DateTime.Now.DayOfWeek) == 6)
+                {
+                    duration = Convert.ToDateTime("10:00").AddDays(2).Subtract(DateTime.Now);
+                }
+
+                if (((int)DateTime.Now.DayOfWeek) == 0)
+                {
+                    duration = Convert.ToDateTime("10:00").AddDays(1).Subtract(DateTime.Now);
+                }
                 timer.Stop();
-                Console.WriteLine($"Após essa consulta vou dormir por {duration} horas, até amanhã as 10h");
+                Console.WriteLine($"Após essa consulta vou dormir por {duration.ToString("c")} horas, até segunda-feira as 10h");
                 Thread.Sleep(duration);
                 timer.Start();
             }
+
+           
 
         }
 
