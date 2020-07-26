@@ -153,5 +153,30 @@ namespace WindowsForms_stock_quote_alert
 
             return true;
         }
+
+        public void ApenasNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+
+                // only allow one decimal point
+                if ((e.KeyChar == '.') && ((sender as MetroFramework.Controls.MetroTextBox).Text.IndexOf('.') > -1))
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void IgnoraTeclaEnter(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
     }
+
 }

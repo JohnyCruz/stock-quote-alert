@@ -78,7 +78,7 @@
             this.metroTabControl1.Controls.Add(this.configuracao);
             this.metroTabControl1.Location = new System.Drawing.Point(23, 64);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(522, 434);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -165,6 +165,7 @@
             this.metroTextBoxAtivo.UseSelectable = true;
             this.metroTextBoxAtivo.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxAtivo.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxAtivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroTextBoxRefVenda
             // 
@@ -197,6 +198,8 @@
             this.metroTextBoxRefVenda.UseSelectable = true;
             this.metroTextBoxRefVenda.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRefVenda.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxRefVenda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
+            this.metroTextBoxRefVenda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ApenasNumeros);
             // 
             // metroTextBoxRefCompra
             // 
@@ -229,6 +232,8 @@
             this.metroTextBoxRefCompra.UseSelectable = true;
             this.metroTextBoxRefCompra.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxRefCompra.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxRefCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
+            this.metroTextBoxRefCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ApenasNumeros);
             // 
             // metroLabel1
             // 
@@ -349,6 +354,7 @@
             this.metroTextBoxAPIKey.UseSelectable = true;
             this.metroTextBoxAPIKey.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxAPIKey.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxAPIKey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroLabel11
             // 
@@ -390,6 +396,7 @@
             this.metroTextBoxSMTPPort.UseSelectable = true;
             this.metroTextBoxSMTPPort.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxSMTPPort.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxSMTPPort.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroTextBoxSMTPHost
             // 
@@ -422,6 +429,7 @@
             this.metroTextBoxSMTPHost.UseSelectable = true;
             this.metroTextBoxSMTPHost.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxSMTPHost.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxSMTPHost.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroLabel9
             // 
@@ -487,6 +495,7 @@
             this.metroTextBoxEmailPara.UseSelectable = true;
             this.metroTextBoxEmailPara.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxEmailPara.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxEmailPara.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroTextBoxEmailDe
             // 
@@ -519,6 +528,7 @@
             this.metroTextBoxEmailDe.UseSelectable = true;
             this.metroTextBoxEmailDe.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxEmailDe.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxEmailDe.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // groupBox2
             // 
@@ -564,6 +574,7 @@
             this.metroTextBoxCredencialSenha.UseSelectable = true;
             this.metroTextBoxCredencialSenha.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxCredencialSenha.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxCredencialSenha.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroTextBoxCredencialEmail
             // 
@@ -596,6 +607,7 @@
             this.metroTextBoxCredencialEmail.UseSelectable = true;
             this.metroTextBoxCredencialEmail.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.metroTextBoxCredencialEmail.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.metroTextBoxCredencialEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IgnoraTeclaEnter);
             // 
             // metroLabel6
             // 
