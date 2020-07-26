@@ -78,7 +78,7 @@
             this.metroTabControl1.Controls.Add(this.configuracao);
             this.metroTabControl1.Location = new System.Drawing.Point(23, 64);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(522, 434);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -258,6 +258,7 @@
             this.metroTileParar.Text = "Parar";
             this.metroTileParar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileParar.UseSelectable = true;
+            this.metroTileParar.Click += new System.EventHandler(this.metroTileParar_Click);
             // 
             // metroTileIniciar
             // 
@@ -269,6 +270,7 @@
             this.metroTileIniciar.Text = "Iniciar";
             this.metroTileIniciar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileIniciar.UseSelectable = true;
+            this.metroTileIniciar.Click += new System.EventHandler(this.metroTileIniciar_Click);
             // 
             // configuracao
             // 
@@ -298,6 +300,7 @@
             this.metroTileSalvar.Text = "Salvar";
             this.metroTileSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.metroTileSalvar.UseSelectable = true;
+            this.metroTileSalvar.Click += new System.EventHandler(this.metroTileSalvar_Click);
             // 
             // groupBox3
             // 
