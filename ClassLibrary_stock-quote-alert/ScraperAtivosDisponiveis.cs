@@ -14,8 +14,8 @@ namespace ClassLibrary_stock_quote_alert
     {
         public static bool Atualizar()
         {
-            string arquivoAtivos = Path.Combine("Resources", "ativos_disponiveis.csv");
-            string arquivoAtivosBKP = Path.Combine("Resources", "ativos_disponiveis_bkp.csv");
+            string arquivoAtivos = Path.Combine("Resources", "ativos_disponiveis.txt");
+            string arquivoAtivosBKP = Path.Combine("Resources", "ativos_disponiveis_bkp.txt");
             StringBuilder stringBuilder = new StringBuilder();
             try
             {
@@ -44,7 +44,7 @@ namespace ClassLibrary_stock_quote_alert
             try
             {
                 if (File.Exists(arquivoAtivos)) File.Copy(arquivoAtivos, arquivoAtivosBKP,true);
-                using (StreamWriter streamWriter = new StreamWriter(Path.Combine("Resources", "ativos_disponiveis.csv"),false,Encoding.ASCII))
+                using (StreamWriter streamWriter = new StreamWriter(Path.Combine("Resources", "ativos_disponiveis.txt"),false,Encoding.ASCII))
                 {
                     streamWriter.Write(stringBuilder.ToString());
                 }

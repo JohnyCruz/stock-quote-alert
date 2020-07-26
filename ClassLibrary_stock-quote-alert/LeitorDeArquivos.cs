@@ -13,7 +13,7 @@ namespace ClassLibrary_stock_quote_alert
         {
             try
             {
-                string arquivoAtivos = "ativos_disponiveis.csv";
+                string arquivoAtivos = "ativos_disponiveis.txt";
                 string resourcePath = Path.Combine("Resources", arquivoAtivos);
                 if (!File.Exists(resourcePath)) return new List<string>();
                 using (StreamReader reader = new StreamReader(resourcePath))
@@ -23,8 +23,9 @@ namespace ClassLibrary_stock_quote_alert
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                List<string> lista = new List<string>();
+                lista.Add("Falha ao ler os ativos disponíveis");
+                return lista;
             }
         }
 
@@ -44,7 +45,7 @@ namespace ClassLibrary_stock_quote_alert
             catch (Exception ex)
             {
 
-                throw ex;
+                return string.Empty;
             }
         }
         public static string modeloEmailCompra()

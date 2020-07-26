@@ -77,9 +77,9 @@ namespace ClassLibrary_stock_quote_alert.Properties {
         ///SANB11;Banco Santander (Brasil) S.A.
         ///BBPO11;BB Progressivo II Fundo de Investimen [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
-        internal static string ativos_disponiveis_csv {
+        internal static string ativos_disponiveis_txt {
             get {
-                return ResourceManager.GetString("ativos_disponiveis.csv", resourceCulture);
+                return ResourceManager.GetString("ativos_disponiveis.txt", resourceCulture);
             }
         }
         

@@ -106,10 +106,10 @@ namespace WindowsForms_stock_quote_alert
                     , MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string caminho = Path.Combine("Resources", "ativos_disponiveis.csv");
+                    string caminho = Path.Combine("Resources", "ativos_disponiveis.txt");
                     if (File.Exists(caminho))
                     {
-                        string caminhoAreaDeTralho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"ativos_disponiveis_{DateTime.Now.Ticks.ToString()}.csv");
+                        string caminhoAreaDeTralho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"ativos_disponiveis_{DateTime.Now.Ticks.ToString()}.txt");
                         File.Copy(caminho, caminhoAreaDeTralho,true);
                         Process.Start(Path.Combine("Resources", caminhoAreaDeTralho));
                     }
@@ -260,6 +260,12 @@ namespace WindowsForms_stock_quote_alert
             metroTextBoxSMTPHost.Enabled = value;
             metroTextBoxSMTPPort.Enabled = value;
             metroTextBoxAPIKey.Enabled = value;
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            backgroundWorker1.Abort();
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
     }
 

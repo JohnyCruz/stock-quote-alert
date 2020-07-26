@@ -80,9 +80,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ativos_disponiveis.csv">
+    <Content Include="Resources\ativos_disponiveis.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

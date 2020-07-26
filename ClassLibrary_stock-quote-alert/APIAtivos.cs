@@ -35,7 +35,7 @@ namespace ClassLibrary_stock_quote_alert
             }
             catch(Exception ex)
             {
-                throw ex;
+                return new JObject();
             }
 
 
