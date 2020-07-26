@@ -21,6 +21,7 @@ namespace WindowsForms_stock_quote_alert
         {
             InitializeComponent();
             AtualizaCamposConfiguracao();
+            notifyIcon1.Icon = Properties.Resources.favicon;
             
         }
         private void AtualizaCamposConfiguracao()
