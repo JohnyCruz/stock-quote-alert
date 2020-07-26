@@ -177,6 +177,33 @@ namespace WindowsForms_stock_quote_alert
                 e.SuppressKeyPress = true;
             }
         }
+
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                notifyIcon1.Visible = true;
+                this.notifyIcon1.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                this.notifyIcon1.ContextMenuStrip.Items.Add("Mostrar", null, this.MenuMostrar_Click);
+                this.notifyIcon1.ContextMenuStrip.Items.Add("Exit", null, this.MenuSair_Click);
+                this.Hide();
+
+            }
+        }
+
+        void MenuMostrar_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+        }
+
+        void MenuSair_Click(object sender, EventArgs e)
+        {
+            backgroundWorker1.Abort();
+            backgroundWorker1.Dispose();
+            Application.Exit();
+        }
     }
 
 }

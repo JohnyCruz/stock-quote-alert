@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.monitor = new MetroFramework.Controls.MetroTabPage();
@@ -60,6 +61,7 @@
             this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.metroTabControl1.SuspendLayout();
             this.monitor.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -645,6 +647,11 @@
             this.metroLabel5.TabIndex = 3;
             this.metroLabel5.Text = "Para";
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -656,6 +663,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Monitor de Ativos";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.metroTabControl1.ResumeLayout(false);
             this.monitor.ResumeLayout(false);
             this.monitor.PerformLayout();
@@ -705,6 +713,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel8;
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroLabel metroLabel5;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
