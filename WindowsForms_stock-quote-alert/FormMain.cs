@@ -57,6 +57,7 @@ namespace WindowsForms_stock_quote_alert
                 config.AppSettings.Settings["Culture"].Value = "en-US";
 
                 config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
                 AtualizaCamposConfiguracao();
             }
 
@@ -94,7 +95,16 @@ namespace WindowsForms_stock_quote_alert
 
         private void metroTileSalvar_Click(object sender, EventArgs e)
         {
+            config.AppSettings.Settings["EmailTo"].Value = metroTextBoxEmailPara.Text;
+            config.AppSettings.Settings["EmailFrom"].Value = metroTextBoxEmailDe.Text;
+            config.AppSettings.Settings["CredentialEmail"].Value = metroTextBoxCredencialEmail.Text;
+            config.AppSettings.Settings["CredentialPassword"].Value = metroTextBoxCredencialSenha.Text;
+            config.AppSettings.Settings["SMTPHost"].Value = metroTextBoxSMTPHost.Text;
+            config.AppSettings.Settings["SMTPPort"].Value = metroTextBoxSMTPPort.Text;
+            config.AppSettings.Settings["APIKey"].Value = metroTextBoxAPIKey.Text;
 
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings"); 
         }
     }
 }
