@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8-candlestick-chart-16.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8-candlestick-chart-16.ico" />
+    <None Include="Resources\favicon.ico" />
     <EmbeddedResource Include="Resources\referencia_icone.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

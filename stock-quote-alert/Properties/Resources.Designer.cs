@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsForms_stock_quote_alert.Properties {
+namespace stock_quote_alert.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WindowsForms_stock_quote_alert.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WindowsForms_stock_quote_alert.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("stock_quote_alert.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,16 +67,6 @@ namespace WindowsForms_stock_quote_alert.Properties {
             get {
                 object obj = ResourceManager.GetObject("favicon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap logo_home {
-            get {
-                object obj = ResourceManager.GetObject("logo_home", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary_stock-quote-al
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject-stock-quote-alert", "UnitTestProject-stock-quote-alert\UnitTestProject-stock-quote-alert.csproj", "{92013B8F-B1CD-4E56-A7EC-A1D7BB7F95EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsForms_stock-quote-alert", "WindowsForms_stock-quote-alert\WindowsForms_stock-quote-alert.csproj", "{19F91BA2-C5BB-49F8-BF40-7CAABEF6675F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{92013B8F-B1CD-4E56-A7EC-A1D7BB7F95EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92013B8F-B1CD-4E56-A7EC-A1D7BB7F95EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92013B8F-B1CD-4E56-A7EC-A1D7BB7F95EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F91BA2-C5BB-49F8-BF40-7CAABEF6675F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F91BA2-C5BB-49F8-BF40-7CAABEF6675F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F91BA2-C5BB-49F8-BF40-7CAABEF6675F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F91BA2-C5BB-49F8-BF40-7CAABEF6675F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

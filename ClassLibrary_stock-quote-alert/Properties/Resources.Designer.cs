@@ -82,5 +82,15 @@ namespace ClassLibrary_stock_quote_alert.Properties {
                 return ResourceManager.GetString("ativos_disponiveis.csv", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon favicon {
+            get {
+                object obj = ResourceManager.GetObject("favicon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
