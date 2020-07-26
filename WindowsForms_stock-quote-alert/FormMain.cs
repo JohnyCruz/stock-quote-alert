@@ -104,7 +104,8 @@ namespace WindowsForms_stock_quote_alert
             config.AppSettings.Settings["APIKey"].Value = metroTextBoxAPIKey.Text;
 
             config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings"); 
+            ConfigurationManager.RefreshSection("appSettings");
+            MessageBox.Show("Configurações atualizadas com sucesso.");
         }
     }
 }
