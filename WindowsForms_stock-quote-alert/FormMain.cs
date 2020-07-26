@@ -91,8 +91,12 @@ namespace WindowsForms_stock_quote_alert
             entradaUsuario.ativo = metroTextBoxAtivo.Text;
             entradaUsuario.referenciaVenda = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
             entradaUsuario.referenciaCompra = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
-            if (!ScraperAtivosDisponiveis.Atualizar()) Console.WriteLine("Não foi possível consultar novos ativos, vamos utilizar os ativos disponíveis na ultima atualização.");
-
+            if (entradaUsuario.referenciaVenda < entradaUsuario.referenciaCompra)
+            {
+                MessageBox.Show("Referência de venda não pode ser menor do que a referência de compra.");
+                return;
+            }
+            ScraperAtivosDisponiveis.Atualizar();
             if (!Validacao.ValidaAtivoEstaDisponivelAPI(entradaUsuario.ativo))
             {
 
@@ -106,16 +110,17 @@ namespace WindowsForms_stock_quote_alert
                     if (File.Exists(caminho))
                     {
                         string caminhoAreaDeTralho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"ativos_disponiveis_{DateTime.Now.Ticks.ToString()}.csv");
-                        File.Copy(caminho, caminhoAreaDeTralho);
+                        File.Copy(caminho, caminhoAreaDeTralho,true);
                         Process.Start(Path.Combine("Resources", caminhoAreaDeTralho));
                     }
 
                     MessageBox.Show("Tente novamente com um dos ativos suportados.");
                     
                 }
+                return;
             }
 
-
+            DefineStatusCaixasDeTexto(false);
             metroLabel10.Text = $"Monitoramento iniciado";
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             backgroundWorker1.WorkerReportsProgress = true;
@@ -134,6 +139,7 @@ namespace WindowsForms_stock_quote_alert
             {
                 metroLabel10.Text = $"Aplicação foi parada pelo usuário";
                 backgroundWorker1.Abort();
+                DefineStatusCaixasDeTexto(true);
             }
         }
 
@@ -240,6 +246,20 @@ namespace WindowsForms_stock_quote_alert
             backgroundWorker1.Abort();
             backgroundWorker1.Dispose();
             Application.Exit();
+        }
+
+        public void DefineStatusCaixasDeTexto(bool value)
+        {
+            metroTextBoxAtivo.Enabled = value;
+            metroTextBoxRefCompra.Enabled = value;
+            metroTextBoxRefVenda.Enabled = value;
+            metroTextBoxEmailPara.Enabled = value;
+            metroTextBoxEmailDe.Enabled = value;
+            metroTextBoxCredencialEmail.Enabled = value;
+            metroTextBoxCredencialSenha.Enabled = value;
+            metroTextBoxSMTPHost.Enabled = value;
+            metroTextBoxSMTPPort.Enabled = value;
+            metroTextBoxAPIKey.Enabled = value;
         }
     }
 

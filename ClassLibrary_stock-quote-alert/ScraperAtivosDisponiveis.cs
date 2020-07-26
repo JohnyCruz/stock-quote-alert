@@ -44,7 +44,7 @@ namespace ClassLibrary_stock_quote_alert
             try
             {
                 if (File.Exists(arquivoAtivos)) File.Copy(arquivoAtivos, arquivoAtivosBKP,true);
-                using (StreamWriter streamWriter = new StreamWriter(Path.Combine("Resources", "ativos_disponiveis.csv")))
+                using (StreamWriter streamWriter = new StreamWriter(Path.Combine("Resources", "ativos_disponiveis.csv"),false,Encoding.ASCII))
                 {
                     streamWriter.Write(stringBuilder.ToString());
                 }
