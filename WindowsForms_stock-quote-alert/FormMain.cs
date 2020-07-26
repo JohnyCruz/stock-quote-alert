@@ -1,9 +1,13 @@
-﻿using System;
+﻿using ClassLibrary_stock_quote_alert;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -15,7 +19,8 @@ namespace WindowsForms_stock_quote_alert
     public partial class FormMain : MetroFramework.Forms.MetroForm
     {
         private static AbortableBackgroundWorker backgroundWorker1 = new AbortableBackgroundWorker();
-
+        EntradaUsuario entradaUsuario;
+        CultureInfo usCulture;
         Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
         public FormMain()
         {
@@ -79,6 +84,37 @@ namespace WindowsForms_stock_quote_alert
                 MessageBox.Show("Favor preencher todos os campos antes de iniciar");
                 return;
             }
+
+
+            entradaUsuario = new EntradaUsuario();
+            usCulture = new CultureInfo(System.Configuration.ConfigurationManager.AppSettings["Culture"]);
+            entradaUsuario.ativo = metroTextBoxAtivo.Text;
+            entradaUsuario.referenciaVenda = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
+            entradaUsuario.referenciaCompra = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
+            if (!ScraperAtivosDisponiveis.Atualizar()) Console.WriteLine("Não foi possível consultar novos ativos, vamos utilizar os ativos disponíveis na ultima atualização.");
+
+            if (!Validacao.ValidaAtivoEstaDisponivelAPI(entradaUsuario.ativo))
+            {
+
+                DialogResult dialogResult = MessageBox.Show("Nós não fornecemos suporte para este ativo. Gostaria de saber para quais ativos temos suporte?"
+                    , "alerta"
+                    , MessageBoxButtons.YesNo
+                    , MessageBoxIcon.Warning);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string caminho = Path.Combine("Resources", "ativos_disponiveis.csv");
+                    if (File.Exists(caminho))
+                    {
+                        string caminhoAreaDeTralho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"ativos_disponiveis_{DateTime.Now.Ticks.ToString()}.csv");
+                        File.Copy(caminho, caminhoAreaDeTralho);
+                        Process.Start(Path.Combine("Resources", caminhoAreaDeTralho));
+                    }
+
+                    MessageBox.Show("Tente novamente com um dos ativos suportados.");
+                    
+                }
+            }
+
 
             metroLabel10.Text = $"Monitoramento iniciado";
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;

@@ -26,7 +26,7 @@ namespace WindowsForms_stock_quote_alert
                     Thread.Sleep(1000 * 60 * 1);
                     this.ReportProgress(1);
                     bgWorkingRunning = false;
-                    //TODO:
+                    
                 }
                 base.OnDoWork(e);
             }

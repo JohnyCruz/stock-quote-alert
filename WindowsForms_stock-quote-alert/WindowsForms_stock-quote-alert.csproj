@@ -103,5 +103,11 @@
   <ItemGroup>
     <None Include="Resources\logo-home.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary_stock-quote-alert\ClassLibrary_stock-quote-alert.csproj">
+      <Project>{12995fe1-df7f-4098-ae5c-7693083ba976}</Project>
+      <Name>ClassLibrary_stock-quote-alert</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

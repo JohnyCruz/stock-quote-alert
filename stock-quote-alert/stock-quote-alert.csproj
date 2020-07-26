@@ -75,7 +75,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icons8-candlestick-chart-16.ico" />
     <None Include="Resources\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
