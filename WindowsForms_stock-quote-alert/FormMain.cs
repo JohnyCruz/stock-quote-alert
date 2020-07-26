@@ -44,7 +44,11 @@ namespace WindowsForms_stock_quote_alert
 
         private void metroTileParar_Click(object sender, EventArgs e)
         {
-
+            if (backgroundWorker1.IsBusy)
+            {
+                metroLabel10.Text = $"Aplicação foi parada pelo usuário";
+                backgroundWorker1.Abort();
+            }
         }
 
         private void metroTileSalvar_Click(object sender, EventArgs e)
