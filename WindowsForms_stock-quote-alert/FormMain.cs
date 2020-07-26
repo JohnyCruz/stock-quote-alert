@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace WindowsForms_stock_quote_alert
 {
-    public partial class Form1 : Form
+    public partial class FormMain : MetroFramework.Forms.MetroForm
     {
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
