@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -72,6 +73,13 @@ namespace WindowsForms_stock_quote_alert
         {
             if (backgroundWorker1.IsBusy) return;
             
+            if (!validaEntradaDoUsuario("monitor"))
+            {
+                MessageBox.Show("Favor preencher todos os campos antes de iniciar");
+                return;
+            }
+
+            metroLabel10.Text = $"Monitoramento iniciado";
             metroLabel10.Text = $"Monitoramento iniciado";
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             backgroundWorker1.WorkerReportsProgress = true;
@@ -95,6 +103,25 @@ namespace WindowsForms_stock_quote_alert
 
         private void metroTileSalvar_Click(object sender, EventArgs e)
         {
+
+            if (!validaEntradaDoUsuario("config"))
+            {
+                MessageBox.Show("Favor preencher todos os campos antes de salvar");
+                return;
+            }
+
+            try
+            {
+                new MailAddress(metroTextBoxEmailPara.Text.Trim());
+                new MailAddress(metroTextBoxEmailDe.Text.Trim());
+                new MailAddress(metroTextBoxCredencialEmail.Text.Trim());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Todos os e-mails devem estar no formato correto.");
+                return;
+            }
+
             config.AppSettings.Settings["EmailTo"].Value = metroTextBoxEmailPara.Text;
             config.AppSettings.Settings["EmailFrom"].Value = metroTextBoxEmailDe.Text;
             config.AppSettings.Settings["CredentialEmail"].Value = metroTextBoxCredencialEmail.Text;
@@ -106,6 +133,26 @@ namespace WindowsForms_stock_quote_alert
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
             MessageBox.Show("Configurações atualizadas com sucesso.");
+        }
+
+        public bool validaEntradaDoUsuario(string aba)
+        {
+            if (aba == "monitor")
+            {
+                if (string.IsNullOrEmpty(metroTextBoxAtivo.Text.Trim())) return false;
+                if (string.IsNullOrEmpty(metroTextBoxRefCompra.Text.Trim())) return false;
+                if (string.IsNullOrEmpty(metroTextBoxRefVenda.Text.Trim())) return false;
+            }
+
+            if (string.IsNullOrEmpty(metroTextBoxEmailPara.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxEmailDe.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxCredencialEmail.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxCredencialSenha.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxSMTPHost.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxSMTPPort.Text.Trim())) return false;
+            if (string.IsNullOrEmpty(metroTextBoxAPIKey.Text.Trim())) return false;
+
+            return true;
         }
     }
 }
