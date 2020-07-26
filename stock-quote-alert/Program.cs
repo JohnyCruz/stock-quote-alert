@@ -16,17 +16,24 @@ namespace stock_quote_alert
         private static System.Timers.Timer timer;
         private static EntradaUsuario entradaUsuario;
         private static CultureInfo usCulture;
+        public static bool timerAtivo = false;
         static void Main(string[] args)
         {
+            Console.WriteLine("*************************************************");
+            Console.WriteLine("Aguarde um momento enquanto o sistema realiza as validações necessárias.");
+            Console.WriteLine("*************************************************");
             checarArquivoDeConfiguracao();
             if (!Validacao.ValidaParametrosEntrada(args))
             {
                 Console.WriteLine("Os parâmetros de entrada não estão no formato correto. Seguir o exemplo:");
                 Console.WriteLine("'Ativo'  'Referência para venda' 'Referência para compra'");
                 Console.WriteLine("PETR4 22.67 22.59");
-                Console.WriteLine("Nota: o preço de referencia para venda deve ser maior do que o preço de referencia para compra.");
+                Console.WriteLine("Nota1: O preço de referência para venda deve ser maior do que o preço de referência para compra.");
+                Console.WriteLine("Nota2: Altere as configurações padrões no arquivo \"stock - quote - alert.exe.config\" para colocar suas próprias informações.");
+                
                 Environment.Exit(0);
             }
+
             entradaUsuario = new EntradaUsuario();
             usCulture = new CultureInfo(System.Configuration.ConfigurationManager.AppSettings["Culture"]);
             entradaUsuario.ativo = args[0];
@@ -62,11 +69,13 @@ namespace stock_quote_alert
             }
 
             timer = new System.Timers.Timer();
-            timer.Interval = 1000 * 60 * 15;// A api é atualizada a cada 15 minutos, então a requisição será feita a cada 15 minutos
+            timer.Interval = 100;
             timer.Elapsed += OnTimedEvent;
             timer.Enabled = true;
-
+            timer.Start();
+            Console.WriteLine("************************************************* ");
             Console.WriteLine("Para sair do programa pressione qualquer tecla... ");
+            Console.WriteLine("*************************************************");
             Console.ReadLine();
         }
         private static void checarArquivoDeConfiguracao()
@@ -92,16 +101,18 @@ namespace stock_quote_alert
         }
         private static void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-
-            Console.WriteLine($"O evento foi disparado às {e.SignalTime}");
+            if (timerAtivo) return;
+            timerAtivo = true;
+            Console.WriteLine("*************************************************");
+            Console.WriteLine($"O evento foi disparado às {DateTime.Now}");
             checarArquivoDeConfiguracao();
             Console.WriteLine($"Estou monitorando o ativo:{entradaUsuario.ativo}");
-            Console.WriteLine($"Estou monitorando o ativo enviarei um email caso o preço esteja maior que {entradaUsuario.referenciaVenda} ou menor que {entradaUsuario.referenciaCompra}.");
-
+            Console.WriteLine($"Estou monitorando o ativo enviarei um email caso o preço esteja maior que {entradaUsuario.referenciaVenda.ToString("#.00", CultureInfo.InvariantCulture)} ou menor que {entradaUsuario.referenciaCompra.ToString("#.00", CultureInfo.InvariantCulture)}.");
+            Console.WriteLine("*************************************************");
             JObject respostaAPI = APIAtivos.BuscarAtivo(entradaUsuario.ativo);
             if (!(respostaAPI["results"]["error"] is null))
             {
-                Console.WriteLine($"Falha ao conectar com a API às {e.SignalTime}. Detalhes: {respostaAPI["results"]["message"].ToString()}");
+                Console.WriteLine($"Falha ao conectar com a API às {DateTime.Now}. Detalhes: {respostaAPI["results"]["message"].ToString()}");
             }
             else
             {
@@ -113,8 +124,8 @@ namespace stock_quote_alert
                         .Replace("#Ativo", entradaUsuario.ativo)
                         .Replace("#precoAtivo", precoAtivoAtual.ToString())
                         .Replace("#referenciaDeVenda", entradaUsuario.referenciaVenda.ToString());
-                    
-                    
+
+
                     if (Email.Enviar("[stock-quote-alert] Alerta para venda", corpoDoEmail))
                     {
                         Console.WriteLine("E-mail enviado");
@@ -130,8 +141,8 @@ namespace stock_quote_alert
                         .Replace("#Ativo", entradaUsuario.ativo)
                         .Replace("#precoAtivo", precoAtivoAtual.ToString())
                         .Replace("#referenciaDeCompra", entradaUsuario.referenciaCompra.ToString());
-                    
-                    if(Email.Enviar("[stock-quote-alert] Alerta para compra", corpoDoEmail))
+
+                    if (Email.Enviar("[stock-quote-alert] Alerta para compra", corpoDoEmail))
                     {
                         Console.WriteLine("E-mail enviado");
                     }
@@ -139,17 +150,17 @@ namespace stock_quote_alert
                     {
                         Console.WriteLine("Falha ao enviar o email");
                     }
-                    
+
                 }
                 else
                 {
-                    Console.WriteLine($"O preço do ativo as {e.SignalTime} estava em {precoAtivoAtual}. O valor de referência para compra é {entradaUsuario.referenciaCompra} e para venda é {entradaUsuario.referenciaVenda}.");
-                    Console.WriteLine("Aguardando a api atualizar novamente...");
+                    Console.WriteLine($"O preço do ativo as {DateTime.Now} estava em {precoAtivoAtual.ToString("#.00", CultureInfo.InvariantCulture)}. O valor de referência para compra é {entradaUsuario.referenciaCompra.ToString("#.00", CultureInfo.InvariantCulture)} e para venda é {entradaUsuario.referenciaVenda.ToString("#.00", CultureInfo.InvariantCulture)}.");
                 }
+                Console.WriteLine("Aguardando a api atualizar novamente...");
             }
 
-            
-            if(DateTime.Now.TimeOfDay < Convert.ToDateTime("10:00").TimeOfDay || DateTime.Now.TimeOfDay > Convert.ToDateTime("17:30").TimeOfDay)
+
+            if (DateTime.Now.TimeOfDay < Convert.ToDateTime("10:00").TimeOfDay || DateTime.Now.TimeOfDay > Convert.ToDateTime("17:30").TimeOfDay)
             {
                 //Os valores dos ativos não são atualizados antes das 10:00 e também não são atualizados depois das 17:30, então o app espera
                 DateTime startTime = DateTime.Now;
@@ -160,19 +171,21 @@ namespace stock_quote_alert
                 {
                     duration = Convert.ToDateTime("10:00").AddDays(2).Subtract(DateTime.Now);
                 }
-
-                if (((int)DateTime.Now.DayOfWeek) == 5)
+                else if (((int)DateTime.Now.DayOfWeek) == 5)
                 {
                     duration = Convert.ToDateTime("10:00").AddDays(3).Subtract(DateTime.Now);
                 }
-
+                else
+                {
+                    duration = TimeSpan.FromMilliseconds(1000 * 60 * 15); // A api é atualizada a cada 15 minutos, então a requisição será feita a cada 15 minutos
+                }
                 timer.Stop();
-                Console.WriteLine($"Após essa consulta vou dormir por {duration.ToString("c")} horas, até segunda-feira as 10h");
+                Console.WriteLine($"Tempo de espera até a próxima consulta: {duration.ToString("c")}");
                 Thread.Sleep(duration);
                 timer.Start();
             }
 
-           
+            timerAtivo = false;
 
         }
 

@@ -23,13 +23,13 @@ namespace ClassLibrary_stock_quote_alert
                 chromeOptions.AddArguments("headless");
                 IWebDriver driver = new ChromeDriver("./", chromeOptions);
                 ICapabilities capabilities = ((RemoteWebDriver)driver).Capabilities;
-                Console.WriteLine((capabilities.GetCapability("chrome") as Dictionary<string, object>)["chromedriverVersion"]);
+                //Console.WriteLine((capabilities.GetCapability("chrome") as Dictionary<string, object>)["chromedriverVersion"]);
 
                 //IWebDriver driver = new ChromeDriver(Path.Combine("Resources"));
                 driver.Navigate().GoToUrl("https://console.hgbrasil.com/documentation/finance/symbols");
 
                 var ativos = driver.FindElements(By.CssSelector("body > div > div.content-page > div > div.container-fluid > div:nth-child(2) > div > div > div > ul > li"));
-                
+                if (ativos.Count == 0) return false;
                 foreach (var nomeAtivo in ativos)
                 {
                     stringBuilder.AppendLine($"{nomeAtivo.Text.Split('-').LastOrDefault().Trim()};{nomeAtivo.Text.Replace(" - " + nomeAtivo.Text.Split('-').LastOrDefault().Trim(), "")}");
