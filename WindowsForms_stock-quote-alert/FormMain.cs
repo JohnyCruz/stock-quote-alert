@@ -19,7 +19,7 @@ namespace WindowsForms_stock_quote_alert
     public partial class FormMain : MetroFramework.Forms.MetroForm
     {
         private static AbortableBackgroundWorker backgroundWorker1 = new AbortableBackgroundWorker();
-        EntradaUsuario entradaUsuario;
+        public static EntradaUsuario entradaUsuario;
         CultureInfo usCulture;
         Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
         public FormMain()
