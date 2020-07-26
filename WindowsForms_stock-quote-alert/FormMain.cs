@@ -80,7 +80,6 @@ namespace WindowsForms_stock_quote_alert
             }
 
             metroLabel10.Text = $"Monitoramento iniciado";
-            metroLabel10.Text = $"Monitoramento iniciado";
             backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
