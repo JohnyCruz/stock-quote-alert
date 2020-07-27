@@ -90,7 +90,7 @@ namespace WindowsForms_stock_quote_alert
             usCulture = new CultureInfo(System.Configuration.ConfigurationManager.AppSettings["Culture"]);
             entradaUsuario.ativo = metroTextBoxAtivo.Text;
             entradaUsuario.referenciaVenda = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
-            entradaUsuario.referenciaCompra = Convert.ToDecimal(metroTextBoxRefVenda.Text, usCulture);
+            entradaUsuario.referenciaCompra = Convert.ToDecimal(metroTextBoxRefCompra.Text, usCulture);
             if (entradaUsuario.referenciaVenda < entradaUsuario.referenciaCompra)
             {
                 MessageBox.Show("Referência de venda não pode ser menor do que a referência de compra.");
@@ -131,6 +131,7 @@ namespace WindowsForms_stock_quote_alert
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             metroLabel10.Text = $"Atualizado em: {DateTime.Now}";
+            metroLabel12.Text = $"Último preço: {entradaUsuario.precoAtual.ToString("#.00", CultureInfo.InvariantCulture)}";
         }
 
         private void metroTileParar_Click(object sender, EventArgs e)
@@ -138,9 +139,11 @@ namespace WindowsForms_stock_quote_alert
             if (backgroundWorker1.IsBusy)
             {
                 metroLabel10.Text = $"Aplicação foi parada pelo usuário";
+                metroLabel12.Text = "";
                 backgroundWorker1.Abort();
                 DefineStatusCaixasDeTexto(true);
             }
+            
         }
 
         private void metroTileSalvar_Click(object sender, EventArgs e)
@@ -204,11 +207,13 @@ namespace WindowsForms_stock_quote_alert
                 (e.KeyChar != '.'))
             {
 
-                // only allow one decimal point
-                if ((e.KeyChar == '.') && ((sender as MetroFramework.Controls.MetroTextBox).Text.IndexOf('.') > -1))
-                {
-                    e.Handled = true;
-                }
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as MetroFramework.Controls.MetroTextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
             }
         }
 
@@ -266,6 +271,11 @@ namespace WindowsForms_stock_quote_alert
         {
             backgroundWorker1.Abort();
             System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
+
+        private void monitor_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

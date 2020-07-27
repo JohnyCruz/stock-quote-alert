@@ -63,6 +63,7 @@
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
             this.metroTabControl1.SuspendLayout();
             this.monitor.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // monitor
             // 
+            this.monitor.Controls.Add(this.metroLabel12);
             this.monitor.Controls.Add(this.metroLabel10);
             this.monitor.Controls.Add(this.groupBox4);
             this.monitor.Controls.Add(this.metroTileParar);
@@ -104,6 +106,7 @@
             this.monitor.VerticalScrollbarBarColor = true;
             this.monitor.VerticalScrollbarHighlightOnWheel = false;
             this.monitor.VerticalScrollbarSize = 10;
+            this.monitor.Click += new System.EventHandler(this.monitor_Click);
             // 
             // metroLabel10
             // 
@@ -651,7 +654,7 @@
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "Monitor de ativos";
             this.notifyIcon1.Visible = true;
             // 
             // pictureBox1
@@ -663,6 +666,14 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(199, 220);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(0, 0);
+            this.metroLabel12.TabIndex = 12;
             // 
             // FormMain
             // 
@@ -731,6 +742,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel5;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
     }
 }
 

@@ -10,6 +10,7 @@ namespace ClassLibrary_stock_quote_alert
     {
         public string ativo;
         public decimal referenciaCompra;
+        public decimal precoAtual;
         public decimal referenciaVenda;
 
     }

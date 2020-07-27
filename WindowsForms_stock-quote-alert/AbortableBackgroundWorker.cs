@@ -37,6 +37,7 @@ namespace WindowsForms_stock_quote_alert
                     else
                     {
                         Decimal precoAtivoAtual = Convert.ToDecimal(respostaAPI["results"][entradaUsuario.ativo]["price"], usCulture);
+                        entradaUsuario.precoAtual = precoAtivoAtual;
                         if (precoAtivoAtual > entradaUsuario.referenciaVenda)
                         {
                             string corpoDoEmail = LeitorDeArquivos.modeloEmailVenda()
@@ -86,11 +87,13 @@ namespace WindowsForms_stock_quote_alert
                         {
                             duration = TimeSpan.FromMilliseconds(1000 * 60 * 15); // A api é atualizada a cada 15 minutos, então a requisição será feita a cada 15 minutos
                         }
+                        FormMain.entradaUsuario = entradaUsuario;
                         this.ReportProgress(1);
                         //Thread.Sleep(duration); //TODO: Remover esse comentário para o app funcionar durante o tempo que a API é atualizada
                         Thread.Sleep(1000 * 60 * 1);
                         
                     }
+                    
                     bgWorkingRunning = false;
                 }
 
